@@ -53,6 +53,7 @@ jobs:
         run: |
           TARGET="${INPUT_TARGET:-20}"
           pnpm run automation:daily -- --target="$TARGET"
+          pnpm run format
 
       - name: Run validation
         run: pnpm run validate

@@ -1,0 +1,48 @@
+{
+  "name": "daily-dev-lab",
+  "version": "1.0.0",
+  "description": "Automated daily software development, testing, documentation, and repository maintenance.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "automation:daily": "tsx scripts/run-daily-tasks.ts",
+    "report": "tsx scripts/generate-report.ts",
+    "validate:repo": "tsx scripts/validate-repository.ts",
+    "validate": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build"
+  },
+  "keywords": [
+    "automation",
+    "github-actions",
+    "daily-development",
+    "ci-cd",
+    "typescript"
+  ],
+  "author": "0xyz-exe <danielachmadf@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@types/node": "^22.13.4",
+    "eslint": "^9.20.1",
+    "prettier": "^3.5.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0",
+    "vitest": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "dailyTarget": 20,
+  "timezone": "Asia/Jakarta",
+  "minimumQualityChecks": true,
+  "allowEmptyCommits": false,
+  "allowUnverifiedChanges": false,
+  "requireMeaningfulDiff": true,
+  "requirePassingTests": true,
+  "maximumExecutionMinutes": 20
+}

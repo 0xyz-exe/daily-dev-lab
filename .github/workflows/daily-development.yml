@@ -1,0 +1,72 @@
+name: Daily Development
+
+on:
+  schedule:
+    - cron: '15 1 * * *' # 08:15 WIB (Asia/Jakarta, UTC+7)
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target number of tasks to execute'
+        required: false
+        default: '20'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-development
+  cancel-in-progress: false
+
+jobs:
+  daily-development:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure Git Identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run daily development tasks
+        env:
+          INPUT_TARGET: ${{ github.event.inputs.target }}
+        run: |
+          TARGET="${INPUT_TARGET:-20}"
+          pnpm run automation:daily -- --target="$TARGET"
+
+      - name: Run validation
+        run: pnpm run validate
+
+      - name: Push eligible commits
+        run: |
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Daily Execution Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-reports
+          path: reports/
+          retention-days: 14

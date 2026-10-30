@@ -64,9 +64,3 @@ pnpm run validate
 ## License
 
 [MIT](./LICENSE) © 2026 0xyz-exe
-
-
-## Visual Architecture & Workflow
-
-### Autonomous Engine Pipeline
-![Autonomous Engine Pipeline](docs/screenshots/01_workflow_architecture.png)

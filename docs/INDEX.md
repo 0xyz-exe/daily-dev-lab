@@ -9,4 +9,4 @@ Automated directory listing of project documentation guides:
 - [security.md](./security.md)
 - [troubleshooting.md](./troubleshooting.md)
 
-_Updated: 2026-11-26T09:35:19.013Z_
+_Updated: 2026-11-27T09:43:00.164Z_
